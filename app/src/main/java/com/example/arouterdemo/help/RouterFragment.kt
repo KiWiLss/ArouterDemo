@@ -11,7 +11,7 @@ import java.util.*
 class RouterFragment : Fragment() {
 
     private val mCallbacks: SparseArray<ActivityHelper.Callback> =
-            SparseArray<ActivityHelper.Callback>()
+        SparseArray<ActivityHelper.Callback>()
 
     private val mCodeGenerator: Random = Random()
 
@@ -27,24 +27,26 @@ class RouterFragment : Fragment() {
         retainInstance = true
     }
 
-//    fun startActivityForResult(intent: Intent, callback: ActivityHelper.Callback) {
-//        val requestCode = makeRequestCode()
-//        mCallbacks.put(requestCode, callback)
-//        startActivityForResult(intent, requestCode)
-//    }
-
-    fun startActivityForResult(activity: Activity, pageName: String, callback: ActivityHelper.Callback) {
+    fun startActivityForResult(
+        activity: Activity,
+        pageName: String,
+        callback: ActivityHelper.Callback
+    ) {
         val requestCode = makeRequestCode()
         mCallbacks.put(requestCode, callback)
         RouterKtx.startActivityForResult(activity, pageName, requestCode)
     }
 
-    fun startActivityForResult(activity: Activity, pageName: String, bundle: Bundle, callback: ActivityHelper.Callback) {
+    fun startActivityForResult(
+        activity: Activity,
+        pageName: String,
+        bundle: Bundle,
+        callback: ActivityHelper.Callback
+    ) {
         val requestCode = makeRequestCode()
         mCallbacks.put(requestCode, callback)
         RouterKtx.startActivityForResult(activity, pageName, bundle, requestCode)
     }
-
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

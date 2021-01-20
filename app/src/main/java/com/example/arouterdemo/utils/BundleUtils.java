@@ -16,5 +16,6 @@ public class BundleUtils {
         ArrayList arrayList = new ArrayList(list);
         bundle.putParcelableArrayList(key,arrayList);
     }
+
 }
 

@@ -3,6 +3,7 @@ package com.example.arouterdemo.page
 import android.app.Activity
 import android.os.Bundle
 import com.alibaba.android.arouter.launcher.ARouter
+import com.example.arouterdemo.utils.BundleKtx
 import com.example.arouterdemo.utils.BundleUtils
 import java.io.Serializable
 
@@ -24,33 +25,7 @@ object RouterKtx {
     }
 
     fun startActivity(pageName: String, vararg params: Pair<String, Any?>) {
-        val bundle = Bundle()
-        params.forEach {
-            when (it.second) {
-                is String -> {
-                    bundle.putString(it.first, it.second as String)
-                }
-                is Int -> {
-                    bundle.putInt(it.first, it.second as Int)
-                }
-                is Long -> {
-                    bundle.putLong(it.first, it.second as Long)
-                }
-                is Double -> {
-                    bundle.putDouble(it.first, it.second as Double)
-                }
-                is List<*> -> {
-                    BundleUtils.putList(bundle, it.first, it.second as List<*>)
-                }
-                is Serializable -> {
-                    bundle.putSerializable(it.first, it.second as Serializable?)
-                }
-                else -> {
-
-                }
-            }
-        }
-        ARouter.getInstance().build(pageName).with(bundle)
+        ARouter.getInstance().build(pageName).with(BundleKtx.createBundle(*params))
             .navigation()
     }
 
@@ -79,37 +54,9 @@ object RouterKtx {
         requestCode: Int,
         vararg params: Pair<String, Any?>
     ) {
-        val bundle = Bundle()
-        params.forEach {
-            when (it.second) {
-                is String -> {
-                    bundle.putString(it.first, it.second as String)
-                }
-                is Int -> {
-                    bundle.putInt(it.first, it.second as Int)
-                }
-                is Long -> {
-                    bundle.putLong(it.first, it.second as Long)
-                }
-                is Double -> {
-                    bundle.putDouble(it.first, it.second as Double)
-                }
-                is List<*> -> {
-                    BundleUtils.putList(bundle, it.first, it.second as List<*>)
-                }
-                is Serializable -> {
-                    bundle.putSerializable(it.first, it.second as Serializable?)
-                }
-                else -> {
-
-                }
-            }
-        }
-        ARouter.getInstance().build(pageName).with(bundle)
+        ARouter.getInstance().build(pageName).with(BundleKtx.createBundle(*params))
             .navigation(activity, requestCode)
     }
-
-
 
 
 }

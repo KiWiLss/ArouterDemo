@@ -11,6 +11,7 @@ import com.example.arouterdemo.R
 import com.example.arouterdemo.Test
 import com.example.arouterdemo.help.ActivityHelper
 import com.example.arouterdemo.help.ActivityHelper.Companion.init
+import com.example.arouterdemo.page.RouterKtx
 import com.example.arouterdemo.page.RouterPage
 import com.example.arouterdemo.utils.LogUtils
 import kotlinx.android.synthetic.main.activity_router_a.*
@@ -23,7 +24,7 @@ import java.util.*
  *  desc   :
  */
 @Route(path = RouterPage.AROUTER_A)
-class ArouterAActivity: AppCompatActivity(R.layout.activity_router_a) {
+class ArouterAActivity : AppCompatActivity(R.layout.activity_router_a) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,7 +34,7 @@ class ArouterAActivity: AppCompatActivity(R.layout.activity_router_a) {
             .commit()
 
         btnRouterANo.setOnClickListener {
-            val bean = RouterBean("alice",20)
+            val bean = RouterBean("alice", 20)
             ARouter.getInstance()
                 .build(RouterPage.AROUTER_B)
                 //.withSerializable(RouterPage.DATA,bean)
@@ -41,13 +42,13 @@ class ArouterAActivity: AppCompatActivity(R.layout.activity_router_a) {
         }
 
         btnRouterAHas.setOnClickListener {
-            val bean = RouterBean("alice",20)
-            val bean2 = RouterBean("hh",2)
-            val list = listOf<RouterBean>(bean,bean2)
+            val bean = RouterBean("alice", 20)
+            val bean2 = RouterBean("hh", 2)
+            val list = listOf<RouterBean>(bean, bean2)
             val bundle = Bundle()
-            Test.listTest(bundle,list)
-            bundle.putString(RouterPage.KEY,"hello word")
-            bundle.putInt(RouterPage.ID,123)
+            Test.listTest(bundle, list)
+            bundle.putString(RouterPage.KEY, "hello word")
+            bundle.putInt(RouterPage.ID, 123)
             ARouter.getInstance()
                 .build(RouterPage.AROUTER_B)
                 .with(bundle)
@@ -59,7 +60,7 @@ class ArouterAActivity: AppCompatActivity(R.layout.activity_router_a) {
             //拦截后会执行 onFound   onInterrupt
             //不拦截会执行 onFound  onArrival
             ARouter.getInstance().build(RouterPage.AROUTER_B)
-                .navigation(this,object : NavigationCallback{
+                .navigation(this, object : NavigationCallback {
                     override fun onLost(postcard: Postcard?) {//迷失
                         LogUtils.e("onLost")
                     }
@@ -80,32 +81,43 @@ class ArouterAActivity: AppCompatActivity(R.layout.activity_router_a) {
         }
         //回调
         btnRouterAHas3.setOnClickListener {
-            ARouter.getInstance().build(RouterPage.AROUTER_B)
-                .navigation(this,22)
+            RouterKtx.startActivity(RouterPage.AROUTER_B, RouterPage.KEY to "234")
         }
         //接口回调
         btnRouterAHas4.setOnClickListener {
             ActivityHelper.init(this)
-                .startActivityForResult(RouterPage.AROUTER_B,object :ActivityHelper.Callback{
+                .startActivityForResult(RouterPage.AROUTER_B, object : ActivityHelper.Callback {
                     override fun onActivityResult(resultCode: Int, data: Intent?) {
-                        LogUtils.e(data,"result--$resultCode")
+                        LogUtils.e(data, "result--$resultCode")
+                    }
+                })
+        }
+        btnRouterAHas5.setOnClickListener {
+            //传list数据
+            val list = arrayListOf(RouterBean("a1", 11), RouterBean("a2", 31))
+//            ActivityHelper.init(this)
+//                .startActivityForResult(RouterPage.AROUTER_B,object : ActivityHelper.Callback{
+//                    override fun onActivityResult(resultCode: Int, data: Intent?) {
+//                            LogUtils.e(data?.getStringExtra("key"))
+//                    }
+//                }, RouterPage.DATA to list)
+            //从b调用函数直接跳转
+//            ArouterBActivity.startActivity(this,"234")
+            //从b调起带回调
+            ArouterBActivity.startActivityResult(
+                this,
+                list,
+                object : ActivityHelper.Callback {
+                    override fun onActivityResult(resultCode: Int, data: Intent?) {
+                        LogUtils.e(data?.getStringExtra("key"))
                     }
                 })
         }
 
 
-        ActivityHelper.init(this)
-            .startActivityForResult("",object : ActivityHelper.Callback{
-                override fun onActivityResult(resultCode: Int, data: Intent?) {
-
-                }
-            }, "1" to 1, "2" to 2)
-
-
-
     }
 
-    fun testList(){
+    fun testList() {
         val bundle = Bundle()
         val list = ArrayList<Any>() //这个arraylist是可以直接在bundle里传的，所以我们可以借用一下它的功能
 
@@ -117,10 +129,10 @@ class ArouterAActivity: AppCompatActivity(R.layout.activity_router_a) {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 //        LogUtils.e(data?.getStringExtra("key"),"key")
-        LogUtils.e(data,"onActivityResult--data:")
+        LogUtils.e(data, "onActivityResult--data:")
 //        LogUtils.e(resultCode,"onActivityResult--resultCode: $requestCode")
         supportFragmentManager.fragments.forEach {
-            it.onActivityResult(requestCode,resultCode,data)
+            it.onActivityResult(requestCode, resultCode, data)
         }
     }
 }

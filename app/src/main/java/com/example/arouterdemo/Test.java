@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
 import com.example.arouterdemo.help.ActivityHelper;
+import com.example.arouterdemo.page.RouterKtx;
 import com.example.arouterdemo.page.RouterPage;
 import com.example.arouterdemo.utils.MyRouter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import kotlin.Pair;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function2;
 
@@ -23,7 +26,7 @@ import kotlin.jvm.functions.Function2;
  */
 public class Test {
 
-    public void test(){
+    public void test(FragmentActivity activity){
         MyRouter.INSTANCE.navigation(new Fragment(), new Intent(), new Function2<Integer, Intent, Unit>() {
             @Override
             public Unit invoke(Integer integer, Intent intent) {
@@ -34,6 +37,11 @@ public class Test {
                 .startActivityForResult("",(resultCode,data) -> {
 
                 });
+        ActivityHelper.Companion.init(activity)
+                .startActivityForResult("",((resultCode, data) -> {
+
+                }),new Pair<>("1",1));
+        RouterKtx.INSTANCE.startActivity("",new Pair<>("1",1));
     }
 
     public static <T>void listTest(Bundle bundle,List<T> list){
