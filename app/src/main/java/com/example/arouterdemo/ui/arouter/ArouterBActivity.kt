@@ -41,7 +41,7 @@ class ArouterBActivity : AppCompatActivity(R.layout.activity_router_b) {
         fun startActivity(activity: FragmentActivity, key: String?) {
             RouterKtx.startActivity(RouterPage.AROUTER_B, RouterPage.KEY to key)
         }
-        fun startActivityResult(
+        fun startActivityForResult(
             activity: FragmentActivity,
             list: List<*>,
             callback: ActivityHelper.Callback

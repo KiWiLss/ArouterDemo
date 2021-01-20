@@ -10,7 +10,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.arouterdemo.R
 import com.example.arouterdemo.Test
 import com.example.arouterdemo.help.ActivityHelper
-import com.example.arouterdemo.help.ActivityHelper.Companion.init
 import com.example.arouterdemo.page.RouterKtx
 import com.example.arouterdemo.page.RouterPage
 import com.example.arouterdemo.utils.LogUtils
@@ -104,7 +103,7 @@ class ArouterAActivity : AppCompatActivity(R.layout.activity_router_a) {
             //从b调用函数直接跳转
 //            ArouterBActivity.startActivity(this,"234")
             //从b调起带回调
-            ArouterBActivity.startActivityResult(
+            ArouterBActivity.startActivityForResult(
                 this,
                 list,
                 object : ActivityHelper.Callback {
