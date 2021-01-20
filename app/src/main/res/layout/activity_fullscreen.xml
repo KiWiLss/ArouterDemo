@@ -30,7 +30,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="MyRouter"/>
-
+        <Button
+            android:id="@+id/btnMyRouter2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ARouter"/>
 
 
 

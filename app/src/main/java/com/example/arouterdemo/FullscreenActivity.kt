@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.example.arouterdemo.ui.arouter.ArouterAActivity
 import com.example.arouterdemo.ui.myrouter.AActivity
 import com.example.arouterdemo.utils.MyRouter
 import kotlinx.android.synthetic.main.activity_fullscreen.*
@@ -91,6 +92,15 @@ class FullscreenActivity : AppCompatActivity() {
                 Log.e("MMM", ": resultCode=$integer + intent=$intent")
             }
         }
+
+        btnMyRouter2.setOnClickListener {
+            val intent = Intent(this, ArouterAActivity::class.java)
+            MyRouter.navigation(this, intent) { integer: Int?, intent: Intent? ->
+                Log.e("MMM", ": resultCode=$integer + intent=$intent")
+            }
+        }
+
+
 
     }
 

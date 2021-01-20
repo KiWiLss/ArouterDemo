@@ -24,6 +24,8 @@
 
         <activity android:name=".ui.myrouter.AActivity"/>
         <activity android:name=".ui.myrouter.BActivity"/>
+        <activity android:name=".ui.arouter.ArouterAActivity"/>
+        <activity android:name=".ui.arouter.ArouterBActivity"/>
 
 
     </application>
