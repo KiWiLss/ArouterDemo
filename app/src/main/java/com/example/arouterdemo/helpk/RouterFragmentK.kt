@@ -1,4 +1,4 @@
-package com.example.arouterdemo.help
+package com.example.arouterdemo.helpk
 
 import android.app.Activity
 import android.content.Intent
@@ -8,16 +8,15 @@ import androidx.fragment.app.Fragment
 import com.example.arouterdemo.ktx.RouterKtx
 import java.util.*
 
-class RouterFragment : Fragment() {
+class RouterFragmentK : Fragment() {
 
-    private val mCallbacks: SparseArray<ActivityHelper.Callback> =
-        SparseArray<ActivityHelper.Callback>()
+    private val mCallbacks: SparseArray<((Int, Intent?) -> Unit)?> = SparseArray()
 
     private val mCodeGenerator: Random = Random()
 
     companion object {
-        fun newInstance(): RouterFragment? {
-            return RouterFragment()
+        fun newInstance(): RouterFragmentK? {
+            return RouterFragmentK()
         }
     }
 
@@ -30,7 +29,7 @@ class RouterFragment : Fragment() {
     fun startActivityForResult(
         activity: Activity,
         pageName: String,
-        callback: ActivityHelper.Callback
+        callback: ((Int, Intent?) -> Unit)?
     ) {
         val requestCode = makeRequestCode()
         mCallbacks.put(requestCode, callback)
@@ -41,17 +40,17 @@ class RouterFragment : Fragment() {
         activity: Activity,
         pageName: String,
         bundle: Bundle,
-        callback: ActivityHelper.Callback
+        callback: ((Int, Intent?) -> Unit)?
     ) {
         val requestCode = makeRequestCode()
         mCallbacks.put(requestCode, callback)
         RouterKtx.startActivityForResult(activity, pageName, bundle, requestCode)
     }
 
-    fun  startActivityForResult(intent: Intent, callback: ActivityHelper.Callback){
+    fun startActivityForResult(intent: Intent,callback: ((Int, Intent?) -> Unit)?) {
         val requestCode = makeRequestCode()
-        mCallbacks.put(requestCode,callback)
-        startActivityForResult(intent,requestCode)
+        mCallbacks.put(requestCode, callback)
+        startActivityForResult(intent, requestCode)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -60,7 +59,7 @@ class RouterFragment : Fragment() {
         val callback = mCallbacks[requestCode]
         mCallbacks.remove(requestCode)
         callback?.run {
-            onActivityResult(resultCode, data)
+            invoke(resultCode, data)
         }
     }
 

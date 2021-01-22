@@ -3,6 +3,7 @@ package com.example.arouterdemo.ui.arouter
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
 import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.callback.NavigationCallback
@@ -10,9 +11,11 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.example.arouterdemo.R
 import com.example.arouterdemo.Test
 import com.example.arouterdemo.help.ActivityHelper
-import com.example.arouterdemo.page.RouterKtx
+import com.example.arouterdemo.help.ActivityHelper.Companion.init
+import com.example.arouterdemo.ktx.RouterKtx
 import com.example.arouterdemo.page.RouterPage
 import com.example.arouterdemo.utils.LogUtils
+import com.example.arouterdemo.ktx.startActivityForResult
 import kotlinx.android.synthetic.main.activity_router_a.*
 import java.util.*
 
@@ -111,6 +114,54 @@ class ArouterAActivity : AppCompatActivity(R.layout.activity_router_a) {
                         LogUtils.e(data?.getStringExtra("key"))
                     }
                 })
+        }
+        btnRouterAHas6.setOnClickListener {
+            val list = arrayListOf(RouterBean("a1", 11), RouterBean("a2", 31))
+//            ActivityHelperK.init(this)
+//                .startActivityForResult(RouterPage.AROUTER_B){result,data ->
+//                    LogUtils.e(data?.getStringExtra("key"))
+//                }
+//            ActivityHelperK.init(this)
+//                .startActivityForResult(RouterPage.AROUTER_B,{result,data ->
+//                    LogUtils.e(data?.getStringExtra("key"))
+//                },RouterPage.DATA to list)
+
+            ArouterBActivity.startActivityForResult(this,list){reulstCode, data ->
+                LogUtils.e(data?.getStringExtra("key"))
+            }
+        }
+
+        ArouterBActivity.test(object : ActivityHelper.Callback{
+            override fun onActivityResult(resultCode: Int, data: Intent?) {
+
+            }
+
+        })
+
+        ActivityHelper.init(this)
+            .startActivityForResult(RouterPage.AROUTER_B,object :ActivityHelper.Callback{
+                override fun onActivityResult(resultCode: Int, data: Intent?) {
+
+                }
+
+            })
+
+    }
+
+    fun testKK(activity: FragmentActivity?) {
+        init(activity!!)
+            .startActivityForResult(
+                "",
+                object : ActivityHelper.Callback {
+                    override fun onActivityResult(resultCode: Int, data: Intent?) {
+
+                    }
+                })
+
+
+        startActivityForResult(RouterPage.AROUTER_B){
+            resultCode, data ->
+
         }
 
 

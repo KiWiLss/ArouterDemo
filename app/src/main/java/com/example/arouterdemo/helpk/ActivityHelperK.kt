@@ -1,4 +1,4 @@
-package com.example.arouterdemo.help
+package com.example.arouterdemo.helpk
 
 import android.app.Activity
 import android.content.Intent
@@ -6,10 +6,10 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import com.example.arouterdemo.ktx.BundleKtx
 
-class ActivityHelper private constructor(activity: FragmentActivity) {
+class ActivityHelperK private constructor(activity: FragmentActivity) {
     private val TAG = "MMM"
     private var mContext: Activity? = null
-    private var mRouterFragment: RouterFragment? = null
+    private var mRouterFragment: RouterFragmentK? = null
 
 
     init {
@@ -18,17 +18,17 @@ class ActivityHelper private constructor(activity: FragmentActivity) {
     }
 
     companion object {
-        fun init(activity: FragmentActivity): ActivityHelper {
-            return ActivityHelper(activity)
+        fun init(activity: FragmentActivity): ActivityHelperK {
+            return ActivityHelperK(activity)
         }
     }
 
 
-    private fun getRouterFragment(activity: FragmentActivity): RouterFragment? {
-        var routerFragment: RouterFragment? = findRouterFragment(activity)
+    private fun getRouterFragment(activity: FragmentActivity): RouterFragmentK? {
+        var routerFragment: RouterFragmentK? = findRouterFragment(activity)
         if (routerFragment == null) {
             //创建 fragment,加入当前 activity
-            routerFragment = RouterFragment.newInstance()
+            routerFragment = RouterFragmentK.newInstance()
             val sfm = activity.supportFragmentManager
             sfm.beginTransaction().add(routerFragment!!, TAG).commitAllowingStateLoss()
             sfm.executePendingTransactions()
@@ -36,9 +36,9 @@ class ActivityHelper private constructor(activity: FragmentActivity) {
         return routerFragment
     }
 
-    private fun findRouterFragment(activity: FragmentActivity): RouterFragment? {
+    private fun findRouterFragment(activity: FragmentActivity): RouterFragmentK? {
         //通过 tag 获取 fragment
-        return activity.supportFragmentManager.findFragmentByTag(TAG) as RouterFragment?
+        return activity.supportFragmentManager.findFragmentByTag(TAG) as RouterFragmentK?
     }
 
     /**
@@ -47,7 +47,7 @@ class ActivityHelper private constructor(activity: FragmentActivity) {
     //跳转方法
     fun startActivityForResult(
         pageName: String,
-        callback: Callback
+        callback: ((Int, Intent?) -> Unit)? = null
     ) {
         mRouterFragment?.run {
             startActivityForResult(mContext!!, pageName, callback)
@@ -58,7 +58,7 @@ class ActivityHelper private constructor(activity: FragmentActivity) {
     fun startActivityForResult(
         pageName: String,
         bundle: Bundle,
-        callback: Callback
+        callback: ((Int, Intent?) -> Unit)?
     ) {
         mRouterFragment?.run {
             startActivityForResult(mContext!!, pageName, bundle, callback)
@@ -67,7 +67,7 @@ class ActivityHelper private constructor(activity: FragmentActivity) {
 
     fun startActivityForResult(
         pageName: String,
-        callback: Callback,
+        callback: ((Int, Intent?) -> Unit)?,
         vararg params: Pair<String, Any?>
     ) {
         mRouterFragment?.run {
@@ -81,26 +81,18 @@ class ActivityHelper private constructor(activity: FragmentActivity) {
     //跳转方法
     fun startActivityForResult(
         clazz: Class<*>,
-        callback: ActivityHelper.Callback
+        callback: ((Int, Intent?) -> Unit)?
     ) {
         val intent = Intent(mContext, clazz)
         startActivityForResult(intent, callback)
     }
 
-    fun startActivityForResult(intent: Intent, callback: Callback){
+    fun startActivityForResult(intent: Intent, callback: ((Int, Intent?) -> Unit)?) {
         mRouterFragment?.run {
             startActivityForResult(intent, callback)
         }
     }
 
-    interface Callback {
-        fun onActivityResult(resultCode: Int, data: Intent?)
-    }
-
 }
-
-
-
-
 
 

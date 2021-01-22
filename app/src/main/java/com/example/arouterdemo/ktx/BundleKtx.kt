@@ -1,7 +1,8 @@
-package com.example.arouterdemo.utils
+package com.example.arouterdemo.ktx
 
 import android.os.Bundle
 import java.io.Serializable
+import java.util.*
 
 /**
  * author : Administrator
@@ -27,7 +28,11 @@ object BundleKtx {
                     bundle.putDouble(it.first, it.second as Double)
                 }
                 is List<*> -> {
-                    BundleUtils.putList(bundle, it.first, it.second as List<*>)
+                    putList(
+                        bundle,
+                        it.first,
+                        it.second as ArrayList<*>
+                    )
                 }
                 is Serializable -> {
                     bundle.putSerializable(it.first, it.second as Serializable?)
@@ -39,4 +44,10 @@ object BundleKtx {
         }
         return bundle
     }
+
+    fun <T> putList(bundle: Bundle, key: String, list: ArrayList<T>?) {
+        bundle.putSerializable(key, list)
+    }
+
+
 }

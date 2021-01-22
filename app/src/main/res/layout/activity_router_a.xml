@@ -31,6 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="回调"/>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -47,6 +49,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="list传递"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnRouterAHas6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="list传递kotlin"/>
+
+
     </LinearLayout>
 
     <FrameLayout

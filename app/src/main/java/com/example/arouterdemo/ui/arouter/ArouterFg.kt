@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.arouterdemo.R
 import com.example.arouterdemo.help.ActivityHelper
+import com.example.arouterdemo.ktx.startActivityForResult
 import com.example.arouterdemo.page.RouterPage
 import com.example.arouterdemo.utils.LogUtils
 import kotlinx.android.synthetic.main.fg_a.*
@@ -39,6 +40,11 @@ class ArouterFg: Fragment(R.layout.fg_a) {
 
               })
         }
+
+        startActivityForResult(""){resultCode,data ->
+
+        }
+
     }
 
 //    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
