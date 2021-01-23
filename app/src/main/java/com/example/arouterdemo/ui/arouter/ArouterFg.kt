@@ -41,9 +41,9 @@ class ArouterFg: Fragment(R.layout.fg_a) {
               })
         }
 
-        startActivityForResult(""){resultCode,data ->
-
-        }
+//        startActivityForResult(""){resultCode,data ->
+//
+//        }
 
     }
 

@@ -131,20 +131,20 @@ class ArouterAActivity : AppCompatActivity(R.layout.activity_router_a) {
             }
         }
 
-        ArouterBActivity.test(object : ActivityHelper.Callback{
-            override fun onActivityResult(resultCode: Int, data: Intent?) {
+//        ArouterBActivity.test(object : ActivityHelper.Callback{
+//            override fun onActivityResult(resultCode: Int, data: Intent?) {
+//
+//            }
+//
+//        })
 
-            }
-
-        })
-
-        ActivityHelper.init(this)
-            .startActivityForResult(RouterPage.AROUTER_B,object :ActivityHelper.Callback{
-                override fun onActivityResult(resultCode: Int, data: Intent?) {
-
-                }
-
-            })
+//        ActivityHelper.init(this)
+//            .startActivityForResult(RouterPage.AROUTER_B,object :ActivityHelper.Callback{
+//                override fun onActivityResult(resultCode: Int, data: Intent?) {
+//
+//                }
+//
+//            })
 
     }
 

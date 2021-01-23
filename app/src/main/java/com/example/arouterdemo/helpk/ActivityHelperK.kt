@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentActivity
 import com.example.arouterdemo.ktx.BundleKtx
 
 class ActivityHelperK private constructor(activity: FragmentActivity) {
-    private val TAG = "MMM"
+    private val TAG = "MMMK"
     private var mContext: Activity? = null
     private var mRouterFragment: RouterFragmentK? = null
 
