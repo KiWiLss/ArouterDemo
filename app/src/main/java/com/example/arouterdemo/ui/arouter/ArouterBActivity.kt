@@ -12,6 +12,7 @@ import com.example.arouterdemo.R
 import com.example.arouterdemo.help.ActivityHelper
 import com.example.arouterdemo.helpk.ActivityHelperK
 import com.example.arouterdemo.ktx.RouterKtx
+import com.example.arouterdemo.ktx.startActivity
 import com.example.arouterdemo.page.RouterPage
 import com.example.arouterdemo.utils.LogUtils
 import kotlinx.android.synthetic.main.activity_router_b.*
@@ -54,9 +55,6 @@ class ArouterBActivity : AppCompatActivity(R.layout.activity_router_b) {
             ActivityHelperK.init(activity).startActivityForResult(RouterPage.AROUTER_B,callback,RouterPage.DATA to list)
         }
 
-        fun test( callback: ActivityHelper.Callback){
-
-        }
     }
 
 
@@ -82,7 +80,6 @@ class ArouterBActivity : AppCompatActivity(R.layout.activity_router_b) {
             setResult(Activity.RESULT_OK, intent)
             finish()
         }
-
 
 
     }

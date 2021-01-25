@@ -17,6 +17,8 @@ object RouterPage {
 
     const val AROUTER_A = "/demo/aroutera"
     const val AROUTER_B = "/demo/arouterb"
+    const val AROUTER_JA = "/demo/arouter_ja"
+    const val AROUTER_JB = "/demo/arouter_jb"
 
 
 

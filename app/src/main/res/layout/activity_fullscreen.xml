@@ -35,7 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="ARouter"/>
-
+        <Button
+            android:id="@+id/btnMyRouter3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="java"/>
 
 
     </LinearLayout>
