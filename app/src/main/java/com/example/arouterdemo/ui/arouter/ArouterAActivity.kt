@@ -1,6 +1,7 @@
 package com.example.arouterdemo.ui.arouter
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
@@ -181,8 +182,10 @@ class ArouterAActivity : AppCompatActivity(R.layout.activity_router_a) {
 //        LogUtils.e(data?.getStringExtra("key"),"key")
         LogUtils.e(data, "onActivityResult--data:")
 //        LogUtils.e(resultCode,"onActivityResult--resultCode: $requestCode")
-        supportFragmentManager.fragments.forEach {
-            it.onActivityResult(requestCode, resultCode, data)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            supportFragmentManager.fragments.forEach {
+                it.onActivityResult(requestCode, resultCode, data)
+            }
         }
     }
 }
