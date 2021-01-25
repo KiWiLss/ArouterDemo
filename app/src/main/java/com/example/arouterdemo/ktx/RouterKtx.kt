@@ -51,7 +51,7 @@ object RouterKtx {
             .navigation(activity, requestCode)
     }
 
-    fun startActivityForResultParams(
+    fun startActivityForResult(
         activity: Activity?,
         pageName: String?,
         requestCode: Int,
