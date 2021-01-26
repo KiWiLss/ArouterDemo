@@ -28,7 +28,7 @@ public class ArouterJBActivity extends AppCompatActivity {
     @Autowired(name = RouterPage.KEY)
     String mKey;
     @Autowired(name = RouterPage.DATA)
-    ArrayList<RouterPage> mData;
+    ArrayList<RouterBean> mData;
 
 
     @Override
@@ -37,6 +37,11 @@ public class ArouterJBActivity extends AppCompatActivity {
         setContentView(R.layout.activity_jb);
 
         ARouter.getInstance().inject(this);
+
+        Intent it = getIntent();
+//        mKey = it.getStringExtra(RouterPage.KEY);
+//        mData = (ArrayList<RouterBean>) it.getSerializableExtra(RouterPage.DATA);
+
 
 
         LogUtils.e(mKey);

@@ -15,6 +15,8 @@ import com.example.arouterdemo.utils.LogUtils;
 
 import java.util.ArrayList;
 
+import kotlin.Pair;
+
 /**
  * @author : Administrator
  * e-mail : kiwilss@163.com
@@ -34,35 +36,61 @@ public class ArouterJAActivity extends AppCompatActivity {
             list.add(bean);
         }
         //java使用
-         findViewById(R.id.btnRouterANo).setOnClickListener(view -> {
+        findViewById(R.id.btnRouterANo).setOnClickListener(view -> {
             //无回调路由跳转
-             //无参跳转
+            //无参跳转
 //             RouterKtx.INSTANCE.startActivity(RouterPage.AROUTER_JB);
-             //带参跳转
-             //使用bundle传值
-             Bundle bundle = new Bundle();
-             bundle.putString(RouterPage.KEY,"key");
-             BundleKtx.INSTANCE.putList(bundle,RouterPage.DATA,list);
+            //带参跳转
+            //使用bundle传值
+            Bundle bundle = new Bundle();
+            bundle.putString(RouterPage.KEY, "key");
+            BundleKtx.INSTANCE.putList(bundle, RouterPage.DATA, list);
 //             RouterKtx.INSTANCE.startActivity(RouterPage.AROUTER_JB,bundle);
-             //使用Pair传值
+            //使用Pair传值
 //             RouterKtx.INSTANCE.startActivity(RouterPage.AROUTER_JB,new Pair<>(RouterPage.KEY,"key"),new Pair<>(RouterPage.DATA,list));
-             //回调跳转
+            //回调跳转
 //             RouterKtx.INSTANCE.startActivityForResult(this,RouterPage.AROUTER_JB,9);
 //             RouterKtx.INSTANCE.startActivityForResult(this,RouterPage.AROUTER_JB,bundle,22);
 //             RouterKtx.INSTANCE.startActivityForResult(this,RouterPage.AROUTER_JB,23,new Pair<>(RouterPage.KEY,"key"));
             //扩展函数和上面基本一致
 //             RouterKtxKt.startActivity(this,RouterPage.AROUTER_JB);
+            //回调优化，无参
+//            ActivityHelper.Companion.init(this)
+//                    .startActivityForResult(ArouterBActivity.class, ((resultCode, data) -> {
+//                        LogUtils.e(resultCode, "startActivityForResult");
+//                        if (data != null) {
+//                            LogUtils.e(data.getStringExtra(RouterPage.KEY), "startActivityForResult:");
+//                        }
+//                    }));
+//            //带参跳转
+//            Intent intent = new Intent(this, ArouterJBActivity.class);
+//            intent.putExtra(RouterPage.KEY, "key");
+//            intent.putExtra(RouterPage.DATA, list);
+//            ActivityHelper.Companion.init(this)
+//                    .startActivityForResult(intent, ((resultCode, data) -> {
+//
+//                    }));
+//
+//            //Arouter无参跳转
+//            ActivityHelper.Companion.init(this)
+//                    .startActivityForResult(RouterPage.AROUTER_JB, ((resultCode, data) -> {
+//
+//                    }));
+//            //Arouter使用bundler传值
+//            ActivityHelper.Companion.init(this)
+//                    .startActivityForResult(RouterPage.AROUTER_JB, bundle, ((resultCode, data) -> {
+//
+//                    }));
+            //Arouter使用pair传值
+            ActivityHelper.Companion.init(this)
+                    .startActivityForResult(RouterPage.AROUTER_JB, ((resultCode, data) -> {
+                        LogUtils.e(resultCode, "startActivityForResult");
+                        if (data != null) {
+                            LogUtils.e(data.getStringExtra(RouterPage.KEY), "startActivityForResult:");
+                        }
+                    }), new Pair<>(RouterPage.KEY, "key"), new Pair<>(RouterPage.DATA, list));
 
-             //回调优化
-             ActivityHelper.Companion.init(this)
-                     .startActivityForResult(ArouterBActivity.class,((resultCode, data) -> {
-                        LogUtils.e(resultCode,"startActivityForResult");
-                         if (data != null){
-                             LogUtils.e(data.getStringExtra(RouterPage.KEY),"startActivityForResult:");
-                         }
-                     }));
-
-         });
+        });
 
 
     }
@@ -72,10 +100,9 @@ public class ArouterJAActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         LogUtils.e(requestCode + "----onActivityResult:" + resultCode);
         LogUtils.e(data);
-        if (data != null){
-            LogUtils.e(data.getStringExtra(RouterPage.KEY),"----onActivityResult:");
+        if (data != null) {
+            LogUtils.e(data.getStringExtra(RouterPage.KEY), "----onActivityResult:");
         }
-
     }
 }
 

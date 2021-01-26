@@ -13,7 +13,10 @@ import com.example.arouterdemo.R
 import com.example.arouterdemo.Test
 import com.example.arouterdemo.help.ActivityHelper
 import com.example.arouterdemo.help.ActivityHelper.Companion.init
+import com.example.arouterdemo.helpk.ActivityHelperK
+import com.example.arouterdemo.ktx.BundleKtx
 import com.example.arouterdemo.ktx.RouterKtx
+import com.example.arouterdemo.ktx.startActivity
 import com.example.arouterdemo.page.RouterPage
 import com.example.arouterdemo.utils.LogUtils
 import com.example.arouterdemo.ktx.startActivityForResult
@@ -127,25 +130,95 @@ class ArouterAActivity : AppCompatActivity(R.layout.activity_router_a) {
 //                    LogUtils.e(data?.getStringExtra("key"))
 //                },RouterPage.DATA to list)
 
-            ArouterBActivity.startActivityForResult(this,list){reulstCode, data ->
+            ArouterBActivity.startActivityForResult(this, list) { reulstCode, data ->
                 LogUtils.e(data?.getStringExtra("key"))
             }
         }
 
-//        ArouterBActivity.test(object : ActivityHelper.Callback{
-//            override fun onActivityResult(resultCode: Int, data: Intent?) {
+//        //示例demo
+//        val bean = RouterBean("alice", 20)
+//        val bean2 = RouterBean("hh", 2)
+//        val list = arrayListOf<RouterBean>(bean, bean2)
+//        val bundle = Bundle()
+//        bundle.putString(RouterPage.KEY, "hai")
+//        BundleKtx.putList(bundle, RouterPage.DATA, list)
+//        //无参跳转
+//        RouterKtx.startActivity(RouterPage.AROUTER_B)
+//        RouterKtx.startActivityForResult(this, RouterPage.AROUTER_B, 9)
+//        startActivity(RouterPage.AROUTER_B)    //扩展函数
+//        //带参bundle跳转
+//        RouterKtx.startActivity(RouterPage.AROUTER_B, bundle)
+//        RouterKtx.startActivityForResult(this, RouterPage.AROUTER_B, bundle, 99)
+//        startActivity(RouterPage.AROUTER_B, bundle)    //扩展函数
+//        //带参pair跳转
+//        RouterKtx.startActivity(
+//            RouterPage.AROUTER_B,
+//            RouterPage.KEY to "hai",
+//            RouterPage.DATA to list
+//        )
+//        RouterKtx.startActivityForResult(
+//            this,
+//            RouterPage.AROUTER_B,
+//            88,
+//            RouterPage.KEY to "hai",
+//            RouterPage.DATA to list
+//        )
+//        startActivity(
+//            RouterPage.AROUTER_B,
+//            RouterPage.KEY to "hai",
+//            RouterPage.DATA to list
+//        )    //扩展函数
+//        //回调跳转优化
+//        //原生跳转优化
+//        ActivityHelperK.init(this)
+//            .startActivityForResult(ArouterBActivity::class.java) { resultCode, data ->
 //
 //            }
+//        //扩展函数
+//        startActivityForResult(ArouterBActivity::class.java) { resultCode, data ->
 //
-//        })
+//        }
+//        //原生带参
+//        val intent = Intent(this, ArouterBActivity::class.java)
+//        intent.putExtra(RouterPage.KEY, "hai")
+//        intent.putExtra(RouterPage.DATA, list)
+//        ActivityHelperK.init(this)
+//            .startActivityForResult(intent) { resultCode, data ->
+//
+//            }
+//        //扩展函数
+//        startActivityForResult(intent) { resultCode, data ->
+//
+//        }
+//        //路由跳转
+//        ActivityHelperK.init(this)
+//            .startActivityForResult(RouterPage.AROUTER_B) { resultCode, data ->
+//
+//            }
+//        //扩展函数
+//        startActivityForResult(RouterPage.AROUTER_B) { resultCode, data ->
+//
+//        }
+//        //路由bundle传值跳转
+//        ActivityHelperK.init(this)
+//            .startActivityForResult(RouterPage.AROUTER_B, bundle) { resultCode, data ->
+//
+//            }
+//        //扩展函数
+//        startActivityForResult(RouterPage.AROUTER_B, bundle) { resultCode, data ->
+//
+//        }
+//        //路由pair传值跳转
+//        ActivityHelperK.init(this)
+//            .startActivityForResult(RouterPage.AROUTER_B, { resultCode, data ->
+//
+//            }, RouterPage.KEY to "hai", RouterPage.DATA to list)
+//        //扩展函数
+//        startActivityForResult(RouterPage.AROUTER_B, { resultCode, data ->
+//
+//        }, RouterPage.KEY to "hai", RouterPage.DATA to list)
 
-//        ActivityHelper.init(this)
-//            .startActivityForResult(RouterPage.AROUTER_B,object :ActivityHelper.Callback{
-//                override fun onActivityResult(resultCode: Int, data: Intent?) {
-//
-//                }
-//
-//            })
+
 
     }
 
@@ -160,8 +233,7 @@ class ArouterAActivity : AppCompatActivity(R.layout.activity_router_a) {
                 })
 
 
-        startActivityForResult(RouterPage.AROUTER_B){
-            resultCode, data ->
+        startActivityForResult(RouterPage.AROUTER_B) { resultCode, data ->
 
         }
 

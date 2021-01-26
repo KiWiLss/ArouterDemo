@@ -66,7 +66,6 @@ class ArouterBActivity : AppCompatActivity(R.layout.activity_router_b) {
         ARouter.getInstance().inject(this)
 
         LogUtils.e(mKey)
-
         LogUtils.e(mData)
 
         btnRouterBNo.setOnClickListener {

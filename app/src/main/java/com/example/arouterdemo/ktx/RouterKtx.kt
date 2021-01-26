@@ -71,7 +71,7 @@ fun Context.startActivity(pageName: String) {
     RouterKtx.startActivity(pageName)
 }
 
-fun Context.startActivity(pageName: String, bundle: Bundle?) {
+fun Context.startActivity(pageName: String, bundle: Bundle) {
     RouterKtx.startActivity(pageName, bundle)
 }
 
@@ -88,6 +88,18 @@ fun Context.startActivityForResult(
             .startActivityForResult(pageName, callback)
     }
 }
+
+fun Context.startActivityForResult(
+    pageName: String,
+    bundle: Bundle,
+    callback: (resultCode: Int, data: Intent?) -> Unit
+) {
+    if (this is Activity) {
+        ActivityHelperK.init(this as FragmentActivity)
+            .startActivityForResult(pageName, bundle, callback)
+    }
+}
+
 
 fun Context.startActivityForResult(
     pageName: String,
@@ -137,6 +149,19 @@ fun Fragment.startActivityForResult(
     }
 
 }
+
+fun Fragment.startActivityForResult(
+    pageName: String,
+    bundle: Bundle,
+    callback: (resultCode: Int, data: Intent?) -> Unit
+) {
+    this.activity?.run {
+        ActivityHelperK.init(this)
+            .startActivityForResult(pageName, bundle, callback)
+    }
+
+}
+
 
 fun Fragment.startActivityForResult(
     pageName: String,
